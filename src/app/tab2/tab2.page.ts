@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { PhotoService } from '../services/photo.service';
@@ -15,6 +16,7 @@ export class Tab2Page  implements AfterViewInit{
 
   public templString: string;
   items: any[] = [];
+  swiperInner: any;
   slideOpts: any;
   borderVar = '5px solid green';
   width = '50%';
@@ -48,8 +50,8 @@ export class Tab2Page  implements AfterViewInit{
       }
     };
   }
-  ngAfterViewInit(): void {
-    //nothing to do
+  async ngAfterViewInit() {
+    this.swiperInner = await this.slidesProducts.getSwiper();
   }
 
   onScroll($event){
@@ -57,8 +59,13 @@ export class Tab2Page  implements AfterViewInit{
     //this.slidesProducts.el.slideNext()
   }
 
-  clickFab($event){
-    this.slidesProducts.slideTo(2);
+  slidesDrag($event){
+    console.log(this.swiperInner.translate);
+  }
+
+  async clickFab($event){
+    
+    //this.slidesProducts.slideTo(2);
   }
 
   getBorderVal(){
