@@ -1,4 +1,4 @@
-<ion-content appParallaxFioritalHeader [scrollEvents]="true" [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" [style.background]="'black'">
+<ion-content (ionScroll)="onScroll($event)" appParallaxFioritalHeader [scrollEvents]="true" [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" [style.background]="'black'" #cnt>
   
   <!-- master header -->
   <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.width]="'100%'" [style.background]="'#5260fff5'" [style.opacity]="'0%'" [style.height]="'4.8em'" 
@@ -26,52 +26,24 @@
     </ion-col>
   </ion-row>
 
-  <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.height]="'2.4em'" [style.width]="'100%'" [style.background]="'black'" [style.opacity]="'100%'" [style.bottom]="'0em'" #barRef>
-    <ion-slides pager="false" [options]="slideOpts">
+  <!-- products group selector -->
+  <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.height]="'2.8em'" [style.width]="'100%'" [style.background]="'black'" [style.opacity]="'100%'" [style.bottom]="'0em'" #barRef>
+    <div [style.height]="'1em'" [style.top]="'1em'"  [style.left]="'2.6em'" [style.width]="'3.2em'" [style.z-index]="'1'"  [style.border-radius]="'0.6em'" [style.background]="'#3880ff'" [style.position]="'absolute'"></div>
+    <ion-slides pager="false" [options]="slideOpts" [style.padding-top]="'0.3em'" #pgs>
       <ion-slide [style.height]="'2em'">
-        <ion-card
-          color="primary"
-          class="ion-activatable ripple-parent">
-                  <div>
-                    <ion-badge color="primary" [style.width]="'7em'">sushi</ion-badge>
-                  </div>
-        </ion-card>
+          <ion-badge  [style.width]="'7em'" [style.background]="'transparent'">sushi</ion-badge>
       </ion-slide>
       <ion-slide [style.height]="'2em'">
-        <ion-card
-          color="primary"
-          class="ion-activatable ripple-parent">
-                  <div>
-                    <ion-badge color="primary" [style.width]="'7em'">DYP frozen</ion-badge>
-                  </div>
-        </ion-card>
+         <ion-badge color="primary" [style.width]="'7em'" [style.background]="'transparent'">DYP frozen</ion-badge>
       </ion-slide>
       <ion-slide [style.height]="'2em'">
-        <ion-card
-          color="primary"
-          class="ion-activatable ripple-parent">
-                  <div>
-                    <ion-badge color="primary" [style.width]="'7em'">Atelier</ion-badge>
-                  </div>
-        </ion-card>
+         <ion-badge color="primary" [style.width]="'7em'" [style.background]="'transparent'">Atelier</ion-badge>
       </ion-slide>
       <ion-slide [style.height]="'2em'">
-        <ion-card
-          color="primary"
-          class="ion-activatable ripple-parent">
-                  <div>
-                    <ion-badge color="primary" [style.width]="'7em'">Altro</ion-badge>
-                  </div>
-        </ion-card>
+         <ion-badge color="primary" [style.width]="'7em'" [style.background]="'transparent'">Altro</ion-badge>
       </ion-slide>
       <ion-slide [style.height]="'2em'">
-        <ion-card
-          color="primary"
-          class="ion-activatable ripple-parent">
-                  <div>
-                    <ion-badge color="primary" [style.width]="'7em'">Italian style</ion-badge>
-                  </div>
-        </ion-card>
+        <ion-badge color="primary" [style.width]="'7em'" [style.background]="'transparent'">Italian style</ion-badge>
       </ion-slide>
     </ion-slides>
   </ion-row>
@@ -79,7 +51,7 @@
   <div class="spacer" [style.height]="'7.5em'"></div>
   
   <ion-fab-button size="small" [style.position]="'fixed'" [style.z-index]="'20'" [style.right]="'2em'" [style.top]="'8.4em'" #fbRef>
-    <ion-fab-button>
+    <ion-fab-button (click)="clickFab($event)">
       <ion-icon name="cart"></ion-icon>
     </ion-fab-button>
   </ion-fab-button>

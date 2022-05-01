@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 import { PhotoService } from '../services/photo.service';
 
 @Component({
@@ -6,7 +7,11 @@ import { PhotoService } from '../services/photo.service';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page  implements AfterViewInit{
+
+  @ViewChild('pgs') slidesProducts: IonSlides;
+  @ViewChild('cnt') content: ElementRef;
+
 
   public templString: string;
   items: any[] = [];
@@ -43,18 +48,21 @@ export class Tab2Page {
       }
     };
   }
+  ngAfterViewInit(): void {
+    //nothing to do
+  }
 
+  onScroll($event){
+    //todo
+    //this.slidesProducts.el.slideNext()
+  }
+
+  clickFab($event){
+    this.slidesProducts.slideTo(2);
+  }
 
   getBorderVal(){
     return '\''+this.borderVar+'\'';
-  }
-
-  doRefresh(event) {
-    console.log('Begin async operation');
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
   }
 
   getImgSrc() {

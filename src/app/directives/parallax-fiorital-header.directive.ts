@@ -32,8 +32,6 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
 
   @HostListener('ionScroll', ['$event']) onContentScroll(ev: any) {
 
-    //this.domCtrl.read(() => {
-
       let imageMoveUp;
       let imagescaleDown;
       let imageOpacity;
@@ -70,7 +68,6 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
         this.renderer.setStyle(this.fabRef.el, 'top', floatButtonMoveUp+'em');
       });
 
-    //});
   }
 
   easeLinear(actualTime, originalValue, targetValue, totalTime, initialCutoff = 0) {
