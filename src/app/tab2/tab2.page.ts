@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 /* eslint-disable prefer-const */
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { IonSlides , Animation, AnimationController, DomController } from '@ionic/angular';
 import { PhotoService } from '../services/photo.service';
 
 @Component({
@@ -12,10 +13,16 @@ export class Tab2Page  implements AfterViewInit{
 
   @ViewChild('pgs') slidesProducts: IonSlides;
   @ViewChild('cnt') content: ElementRef;
+  @ViewChild('divcover') divcover: ElementRef;
 
 
   public templString: string;
   items: any[] = [];
+  wdts: any[] = [];
+
+  lastSelectd: any;
+  lastSelectdIndex = 0;
+
   swiperInner: any;
   slideOpts: any;
   borderVar = '5px solid green';
@@ -35,23 +42,50 @@ export class Tab2Page  implements AfterViewInit{
     'mirth-mobile'
   ];
 
-  constructor(public photoService: PhotoService) {
+  constructor(public photoService: PhotoService, private animationCtrl: AnimationController,private domCtrl: DomController,private renderer: Renderer2) {
     this.photoService = photoService;
     this.templString = photoService.getData();
 
     this.slideOpts = {
       slidesPerView: 3,
-      freeMode: true,
-      coverflowEffect: {
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: false,
-      }
+      freeMode: true
     };
   }
   async ngAfterViewInit() {
     this.swiperInner = await this.slidesProducts.getSwiper();
+
+    this.wdts.push(this.swiperInner.slides[0].children[0].getBoundingClientRect());
+    this.wdts.push(this.swiperInner.slides[1].children[0].getBoundingClientRect());
+    this.wdts.push(this.swiperInner.slides[2].children[0].getBoundingClientRect());
+    this.wdts.push(this.swiperInner.slides[3].children[0].getBoundingClientRect());
+    this.wdts.push(this.swiperInner.slides[4].children[0].getBoundingClientRect());
+
+    this.swiperInner.on('setTranslate', (translate)=>{
+
+      this.domCtrl.write(() => {
+        //this.renderer.setStyle(this.divcover.nativeElement, 'left', this.wdts[this.lastSelectdIndex].x+'px');
+        //this.renderer.setStyle(this.divcover.nativeElement, 'transform', 'translate3d('+this.swiperInner.translate+'px,0,0)');
+        this.renderer.setStyle(this.divcover.nativeElement, 'width', this.wdts[this.lastSelectdIndex].width+'px');
+
+        if (this.swiperInner.translate === 0){
+          this.animationCtrl.create()
+          .addElement(this.divcover.nativeElement)
+          .duration(220)
+          .to('left',this.wdts[this.lastSelectdIndex].x+'px')
+          .to('transform', 'translate3d('+this.swiperInner.translate+'px,0,0)')
+          .play();
+        }else{
+          this.animationCtrl.create()
+          .addElement(this.divcover.nativeElement)
+          .duration(1)
+          .to('left',this.wdts[this.lastSelectdIndex].x+'px')
+          .to('transform', 'translate3d('+this.swiperInner.translate+'px,0,0)')
+          .play();
+        }
+
+
+      });
+    });
   }
 
   onScroll($event){
@@ -60,12 +94,38 @@ export class Tab2Page  implements AfterViewInit{
   }
 
   slidesDrag($event){
-    console.log(this.swiperInner.translate);
+    //console.log(this.swiperInner.translate);
   }
 
   async clickFab($event){
-    
-    //this.slidesProducts.slideTo(2);
+    this.slidesProducts.slideTo(3);
+    this.lastSelectdIndex = 2;
+
+    this.renderer.setStyle(this.divcover.nativeElement, 'width', this.wdts[this.lastSelectdIndex].width+'px');
+
+    this.animationCtrl.create()
+      .addElement(this.divcover.nativeElement)
+      .duration(300)
+      .to('left',this.wdts[this.lastSelectdIndex].x+'px')
+      .to('transform', 'translate3d('+this.swiperInner.translate+'px,0,0)')
+      .play();
+  }
+
+  slidePress($event){
+
+    this.lastSelectdIndex = this.swiperInner.clickedIndex;
+    this.lastSelectd = $event.detail.target;
+
+    //this.renderer.setStyle(this.divcover.nativeElement, 'left', this.wdts[this.lastSelectdIndex].x+'px');
+    //this.renderer.setStyle(this.divcover.nativeElement, 'transform', 'translate3d('+this.swiperInner.translate+'px,0,0)');
+    this.renderer.setStyle(this.divcover.nativeElement, 'width', this.wdts[this.lastSelectdIndex].width+'px');
+
+    this.animationCtrl.create()
+      .addElement(this.divcover.nativeElement)
+      .duration(200)
+      .to('left',this.wdts[this.lastSelectdIndex].x+'px')
+      .to('transform', 'translate3d('+this.swiperInner.translate+'px,0,0)')
+      .play();
   }
 
   getBorderVal(){
