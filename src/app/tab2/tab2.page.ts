@@ -77,7 +77,6 @@ export class Tab2Page  implements AfterViewInit{
         }else{
           this.animationCtrl.create()
           .addElement(this.divcover.nativeElement)
-          .duration(1)
           .to('left',this.wdts[this.lastSelectdIndex].x+'px')
           .to('transform', 'translate3d('+this.swiperInner.translate+'px,0,0)')
           .play();
