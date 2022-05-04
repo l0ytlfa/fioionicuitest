@@ -19,6 +19,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   @Input() headerRef: any;
   @Input() barSearchRef: any;
   @Input() fabRef: any;
+  @Input() barRefBottom: any;
   
   imageHeight: number;
   headerHeight: number;
@@ -38,22 +39,23 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       let barOpacity;
       let floatButtonMoveUp;
       let masterHeaderOpacity;
+      let bottomBarOpacity;
 
       if(ev.detail.scrollTop >= 0){
          imageMoveUp = -this.easeLinear(ev.detail.scrollTop,0,this.imageHeight/3.5,300);
          imagescaleDown = this.easeLinear(ev.detail.scrollTop,1,0.7,300);
          imageOpacity = this.easeLinear(ev.detail.scrollTop,100,0,200);
-         
-         floatButtonMoveUp = this.easeLinear(ev.detail.scrollTop,8.4,3.8,300);
-
+         floatButtonMoveUp = this.easeLinear(ev.detail.scrollTop,7.8,5,300);
          barOpacity = this.easeLinear(ev.detail.scrollTop,0,100,400,300);
          masterHeaderOpacity = this.easeLinear(ev.detail.scrollTop,0,100,250,180);
+         bottomBarOpacity = this.easeLinear(ev.detail.scrollTop,0,100,400,300);
       } else {
         imageMoveUp = this.easeLinear(-ev.detail.scrollTop,0,this.imageHeight,300);
-        imagescaleDown = this.easeLinear(-ev.detail.scrollTop,1,2.5,300);;
+        imagescaleDown = this.easeLinear(-ev.detail.scrollTop,1,2.5,300);
         imageOpacity = 100;
         barOpacity = 0;
-        floatButtonMoveUp = this.easeLinear(-ev.detail.scrollTop,8.4,22.0,300);;
+        bottomBarOpacity = 0;
+        floatButtonMoveUp = this.easeLinear(-ev.detail.scrollTop,7.8,22.0,300);
       }
 
       //---> patch DOM
@@ -62,7 +64,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
         
         this.renderer.setStyle(this.imageRef.el, 'opacity', imageOpacity+'%');
         this.renderer.setStyle(this.headerRef.el, 'opacity', masterHeaderOpacity+'%');
-        
+        this.renderer.setStyle(this.barRefBottom.el, 'opacity', bottomBarOpacity+'%');
 
         this.renderer.setStyle(this.barSearchRef.el, 'opacity', barOpacity+'%');
         this.renderer.setStyle(this.fabRef.el, 'top', floatButtonMoveUp+'em');

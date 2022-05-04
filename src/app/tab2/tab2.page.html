@@ -1,4 +1,5 @@
-<ion-content (ionScroll)="onScroll($event)" appParallaxFioritalHeader [scrollEvents]="true" [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" [style.background]="'black'" #cnt>
+<ion-content (ionScroll)="onScroll($event)" appParallaxFioritalHeader [scrollEvents]="true" [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" 
+ [barRefBottom]="barRefBottom" [style.background]="'black'" #cnt>
   
   <!-- master header -->
   <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.width]="'100%'" [style.background]="'#5260fff5'" [style.opacity]="'0%'" [style.height]="'4.8em'" 
@@ -27,7 +28,7 @@
   </ion-row>
 
   <!-- products group selector -->
-  <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.height]="'2.8em'" [style.width]="'100%'" [style.background]="'black'" [style.opacity]="'100%'" [style.bottom]="'0em'" #barRef>
+  <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.height]="'2.8em'" [style.width]="'100%'" [style.background]="'black'" [style.opacity]="'0%'" [style.bottom]="'0em'" #barRefBottom>
     <div [style.height]="'1em'" [style.top]="'1em'"  [style.left]="'2.6em'" [style.width]="'3.2em'" [style.z-index]="'1'"  [style.border-radius]="'0.6em'" [style.background]="'#3880ff'" 
       [style.position]="'absolute'" #divcover></div>
     <ion-slides (ionSlideTap)="slidePress($event)" pager="false" [options]="slideOpts" [style.padding-top]="'0.3em'" (ionSlideDrag)="slidesDrag($event)" #pgs>
@@ -51,11 +52,28 @@
 
   <div class="spacer" [style.height]="'7.5em'"></div>
   
-  <ion-fab-button size="small" [style.position]="'fixed'" [style.z-index]="'20'" [style.right]="'2em'" [style.top]="'8.4em'" #fbRef>
+  <!-- <ion-fab-button size="small" [style.position]="'fixed'" [style.z-index]="'20'" [style.right]="'2em'" [style.top]="'8.4em'" #fbRef>
     <ion-fab-button (click)="clickFab($event)">
       <ion-icon name="cart"></ion-icon>
     </ion-fab-button>
-  </ion-fab-button>
+  </ion-fab-button> -->
+
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge [style.position]="'fixed'" [style.z-index]="'20'" [style.right]="'1.5em'" [style.top]="'7.8em'" #fbRef>
+    <ion-fab-button size="small">
+      <ion-icon name="cart"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list size="small">
+      <ion-fab-button color="light" size="small">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="light" size="small">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="light" size="small">
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 
   <div class="main-content">
   <ion-list>
@@ -169,7 +187,7 @@
 
     <ion-item>
       <ion-avatar slot="start">
-        <img src="./avatar-yoda.png" />
+        <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
       </ion-avatar>
       <ion-label>
         <h2>Yoda</h2>
@@ -180,7 +198,7 @@
 
     <ion-item>
       <ion-avatar slot="start">
-        <img src="./avatar-leia.png" />
+        <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
       </ion-avatar>
       <ion-label>
         <h2>Leia</h2>
@@ -191,7 +209,7 @@
 
     <ion-item>
       <ion-avatar slot="start">
-        <img src="./avatar-yoda.png" />
+        <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
       </ion-avatar>
       <ion-label>
         <h2>Yoda</h2>
@@ -202,7 +220,7 @@
 
     <ion-item>
       <ion-avatar slot="start">
-        <img src="./avatar-leia.png" />
+        <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
       </ion-avatar>
       <ion-label>
         <h2>Leia</h2>
@@ -213,7 +231,7 @@
 
     <ion-item>
       <ion-avatar slot="start">
-        <img src="./avatar-yoda.png" />
+        <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
       </ion-avatar>
       <ion-label>
         <h2>Yoda</h2>
