@@ -20,6 +20,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   @Input() barSearchRef: any;
   @Input() fabRef: any;
   @Input() barRefBottom: any;
+  @Input() VSE: any;
   
   imageHeight: number;
   headerHeight: number;
@@ -32,44 +33,46 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   }
 
   @HostListener('ionScroll', ['$event']) onContentScroll(ev: any) {
+      //this._animateOnScroll(ev.detail.scrollTo);
+  }
 
-      let imageMoveUp;
-      let imagescaleDown;
-      let imageOpacity;
-      let barOpacity;
-      let floatButtonMoveUp;
-      let masterHeaderOpacity;
-      let bottomBarOpacity;
+  _animateOnScroll(scrollTop){
+    let imageMoveUp;
+    let imagescaleDown;
+    let imageOpacity;
+    let barOpacity;
+    let floatButtonMoveUp;
+    let masterHeaderOpacity;
+    let bottomBarOpacity;
 
-      if(ev.detail.scrollTop >= 0){
-         imageMoveUp = -this.easeLinear(ev.detail.scrollTop,0,this.imageHeight/3.5,300);
-         imagescaleDown = this.easeLinear(ev.detail.scrollTop,1,0.7,300);
-         imageOpacity = this.easeLinear(ev.detail.scrollTop,100,0,200);
-         floatButtonMoveUp = this.easeLinear(ev.detail.scrollTop,7.8,5,300);
-         barOpacity = this.easeLinear(ev.detail.scrollTop,0,100,400,300);
-         masterHeaderOpacity = this.easeLinear(ev.detail.scrollTop,0,100,250,180);
-         bottomBarOpacity = this.easeLinear(ev.detail.scrollTop,0,100,400,300);
-      } else {
-        imageMoveUp = this.easeLinear(-ev.detail.scrollTop,0,this.imageHeight,300);
-        imagescaleDown = this.easeLinear(-ev.detail.scrollTop,1,2.5,300);
-        imageOpacity = 100;
-        barOpacity = 0;
-        bottomBarOpacity = 0;
-        floatButtonMoveUp = this.easeLinear(-ev.detail.scrollTop,7.8,22.0,300);
-      }
+    if(scrollTop >= 0){
+       imageMoveUp = -this.easeLinear(scrollTop,0,this.imageHeight/3.5,300);
+       imagescaleDown = this.easeLinear(scrollTop,1,0.7,300);
+       imageOpacity = this.easeLinear(scrollTop,100,0,200);
+       floatButtonMoveUp = this.easeLinear(scrollTop,7.8,5,300);
+       barOpacity = this.easeLinear(scrollTop,0,100,400,300);
+       masterHeaderOpacity = this.easeLinear(scrollTop,0,100,250,180);
+       bottomBarOpacity = this.easeLinear(scrollTop,0,100,400,300);
+    } else {
+      imageMoveUp = this.easeLinear(-scrollTop,0,this.imageHeight,300);
+      imagescaleDown = this.easeLinear(-scrollTop,1,2.5,300);
+      imageOpacity = 100;
+      barOpacity = 0;
+      bottomBarOpacity = 0;
+      floatButtonMoveUp = this.easeLinear(-scrollTop,7.8,22.0,300);
+    }
 
-      //---> patch DOM
-      this.domCtrl.write(() => {
-        this.renderer.setStyle(this.imageRef.el, 'transform', 'translate3d(0,'+imageMoveUp+'px,0)  scale('+imagescaleDown+','+imagescaleDown+')');
-        
-        this.renderer.setStyle(this.imageRef.el, 'opacity', imageOpacity+'%');
-        this.renderer.setStyle(this.headerRef.el, 'opacity', masterHeaderOpacity+'%');
-        this.renderer.setStyle(this.barRefBottom.el, 'opacity', bottomBarOpacity+'%');
+    //---> patch DOM
+    this.domCtrl.write(() => {
+      this.renderer.setStyle(this.imageRef.el, 'transform', 'translate3d(0,'+imageMoveUp+'px,0)  scale('+imagescaleDown+','+imagescaleDown+')');
+      
+      this.renderer.setStyle(this.imageRef.el, 'opacity', imageOpacity+'%');
+      this.renderer.setStyle(this.headerRef.el, 'opacity', masterHeaderOpacity+'%');
+      this.renderer.setStyle(this.barRefBottom.el, 'opacity', bottomBarOpacity+'%');
 
-        this.renderer.setStyle(this.barSearchRef.el, 'opacity', barOpacity+'%');
-        this.renderer.setStyle(this.fabRef.el, 'top', floatButtonMoveUp+'em');
-      });
-
+      this.renderer.setStyle(this.barSearchRef.el, 'opacity', barOpacity+'%');
+      this.renderer.setStyle(this.fabRef.el, 'top', floatButtonMoveUp+'em');
+    });
   }
 
   easeLinear(actualTime, originalValue, targetValue, totalTime, initialCutoff = 0) {
@@ -102,5 +105,10 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
 
   ngAfterViewInit(){
     this.mainContent = this.element.nativeElement.querySelector('.main-content');
+
+    this.VSE.elementScrolled()
+    .subscribe(function(event){
+      this._animateOnScroll(this.VSE.measureScrollOffset());
+    }.bind(this));
   }
 }
