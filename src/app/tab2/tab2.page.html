@@ -1,5 +1,5 @@
 <ion-content [scrollY]="false" (ionScroll)="onScroll($event)" appParallaxFioritalHeader [scrollEvents]="true"
-  [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" [VSE]="VSE"
+  [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" [VSE]="VSE" [spacer]="SPACER"
   [barRefBottom]="barRefBottom" [style.background]="'black'" #cnt>
 
   <!-- master header  -->
@@ -36,7 +36,7 @@
 
   <!-- products group selector -->
   <ion-row [style.z-index]="'10'" [style.position]="'fixed'" [style.height]="'2.8em'" [style.width]="'100%'"
-    [style.background]="'black'" [style.opacity]="'0%'" [style.bottom]="'0em'" #barRefBottom>
+    [style.background]="'black'" [style.opacity]="'0%'" [style.bottom]="'3em'" #barRefBottom>
     <div [style.height]="'1em'" [style.top]="'1em'" [style.left]="'2.6em'" [style.width]="'3.2em'" [style.z-index]="'1'"
       [style.border-radius]="'0.6em'" [style.background]="'#3880ff'" [style.position]="'absolute'" #divcover></div>
     <ion-slides (ionSlideTap)="slidePress($event)" pager="false" [options]="slideOpts" [style.padding-top]="'0.3em'"
@@ -83,12 +83,11 @@
     </ion-fab-list>
   </ion-fab>
 
-
-  <cdk-virtual-scroll-viewport class="ion-content-scroll-host" itemSize="56" minBufferPx="900" maxBufferPx="1350" #VSE>
-
-    <div class="spacer" [style.height]="'7.5em'"></div>
-   
-    <ion-list *cdkVirtualFor="let header of headers">
+  
+ 
+  <cdk-virtual-scroll-viewport class="ion-content-scroll-host" itemSize="80" minBufferPx="720" maxBufferPx="800" #VSE>
+    <div class="spacer" [style.height]="'7.5em'" #SPACER></div>
+    <!-- <ion-list *cdkVirtualFor="let header of headers">
       <ng-container>
         <ion-list-header [style.color]="'white'">
           <ion-icon name="heart" [style.padding-right]="'1em'" [style.color]="'red'"></ion-icon> {{header.hdr}}
@@ -105,9 +104,28 @@
           </ion-label>
         </ion-item>
       </ng-container>
+    </ion-list> -->
 
+   
 
+    <ion-list>
+      <span *cdkVirtualFor="let item of items; let odd = odd; let i = index">
+        <ion-list-header [style.color]="'white'" [style.height]="'80px'" *ngIf="i===10">
+          <ion-icon name="heart" [style.padding-right]="'1em'" [style.color]="'red'"></ion-icon> {{item.r1}}
+        </ion-list-header>
+        <ion-item [style.height]="'80px'" *ngIf="i!==10">
+          <ion-avatar slot="start">
+            <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
+          </ion-avatar>
+          <ion-label>
+            <h2 [style.color]="'white'">{{item.r1}}</h2>
+            <h3 [style.color]="'white'">{{item.r2}}</h3>
+            <p [style.color]="'darkgrey'">{{item.r3}}.</p>
+          </ion-label>
+        </ion-item>
+      </span>
     </ion-list>
+
   </cdk-virtual-scroll-viewport>
 
 </ion-content>

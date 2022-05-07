@@ -21,6 +21,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   @Input() fabRef: any;
   @Input() barRefBottom: any;
   @Input() VSE: any;
+  @Input() spacer: any;
   
   imageHeight: number;
   headerHeight: number;
@@ -44,6 +45,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
     let floatButtonMoveUp;
     let masterHeaderOpacity;
     let bottomBarOpacity;
+    let reduceTopper;
 
     if(scrollTop >= 0){
        imageMoveUp = -this.easeLinear(scrollTop,0,this.imageHeight/3.5,300);
@@ -61,6 +63,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       bottomBarOpacity = 0;
       floatButtonMoveUp = this.easeLinear(-scrollTop,7.8,22.0,300);
     }
+
 
     //---> patch DOM
     this.domCtrl.write(() => {
