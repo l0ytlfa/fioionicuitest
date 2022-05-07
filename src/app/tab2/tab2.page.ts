@@ -3,7 +3,7 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { IonSlides , Animation, AnimationController, DomController } from '@ionic/angular';
+import { IonSlides , Animation, AnimationController, DomController, Gesture, GestureController, Platform } from '@ionic/angular';
 import { PhotoService } from '../services/photo.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { PhotoService } from '../services/photo.service';
 export class Tab2Page  implements AfterViewInit{
 
   @ViewChild('pgs') slidesProducts: IonSlides;
-  @ViewChild('cnt') content: ElementRef;
+  @ViewChild('cnt') content: any;
   @ViewChild('divcover') divcover: ElementRef;
   @ViewChild('VSE') VSE: CdkVirtualScrollViewport;
 
@@ -46,7 +46,8 @@ export class Tab2Page  implements AfterViewInit{
     'mirth-mobile'
   ];
 
-  constructor(public photoService: PhotoService, private animationCtrl: AnimationController,private domCtrl: DomController,private renderer: Renderer2) {
+  constructor(public photoService: PhotoService, private animationCtrl: AnimationController,private domCtrl: DomController,private renderer: Renderer2,
+    private gestureCtrl: GestureController, private platform: Platform) {
     this.photoService = photoService;
     this.templString = photoService.getData();
 
@@ -58,7 +59,7 @@ export class Tab2Page  implements AfterViewInit{
     for(let idx=1;idx<200;idx++){
       var hdrdata = [];
       for(let idy=1;idy<10;idy++){
-        hdrdata.push({r1:'title here '+idy,r2:'sub title here',r3:'description is long thing'});
+        hdrdata.push({r1:'title here! '+idy,r2:'sub title here',r3:'description is long thing'});
       }
 
       this.headers.push({hdr:'my header :'+idx,items: hdrdata});
@@ -66,12 +67,12 @@ export class Tab2Page  implements AfterViewInit{
     }
 
     for(let idx=1;idx<200;idx++){
-      this.items.push({r1:'title here '+idx,r2:'sub title here',r3:'description is long thing'});
+      this.items.push({r1:'title here! '+idx,r2:'sub title here',r3:'description is long thing'});
     }
 
   }
   async ngAfterViewInit() {
-    
+
     this.swiperInner = await this.slidesProducts.getSwiper();
 
     this.wdts.push(this.swiperInner.slides[0].children[0].getBoundingClientRect());
