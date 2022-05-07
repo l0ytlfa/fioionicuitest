@@ -1,6 +1,6 @@
 <ion-content [scrollY]="false" appParallaxFioritalHeader [scrollEvents]="true"
   [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [mover]="MOVER"
-  [fabRef]="fbRef" [VSE]="VSE" [spacer]="SPACER" [content]="cnt" [draghdr]="DRAGHDR"
+  [fabRef]="fbRef" [VSE]="VSE" [spacer]="SPACER" [content]="cnt" [draghdr]="DRAGHDR" [moverBadge]="MOVERBADGE"
   [barRefBottom]="barRefBottom" [style.background]="'black'" #cnt>
 
   <!-- master header  -->
@@ -18,9 +18,12 @@
     </ion-col>
   </ion-row>
 
+  <!-- mover gripper -->
   <div [style.z-index]="'10'" [style.position]="'fixed'" [style.width]="'0%'" [style.right]="'0px'" [style.top]="'200px'"
   [style.height]="'3em'"[style.background]="'red'" [style.background]="'red'" [style.background]="'#7c9582'"
   [style.border-top-left-radius]="'1em'" [style.border-bottom-left-radius]="'1em'" #MOVER>
+    <ion-badge [style.position]="'absolute'" [style.right]="'2.6em'" [style.opacity]="'0%'" color="primary" 
+    [style.visibility]="'hidden'" #MOVERBADGE>11</ion-badge>
     <ion-icon name="list" [style.padding-top]="'0.7em'" [style.padding-left]="'0.4em'" [style.color]="'white'"
     [style.font-size]="'1.25em'"></ion-icon>
   </div>
@@ -107,26 +110,6 @@
  
   <cdk-virtual-scroll-viewport class="ion-content-scroll-host" itemSize="80" minBufferPx="720" maxBufferPx="800" #VSE>
     <div class="spacer" [style.height]="'7.5em'" #SPACER [style.margin-bottom]="'0em'"></div>
-    <!-- <ion-list *cdkVirtualFor="let header of headers">
-      <ng-container>
-        <ion-list-header [style.color]="'white'">
-          <ion-icon name="heart" [style.padding-right]="'1em'" [style.color]="'red'"></ion-icon> {{header.hdr}}
-        </ion-list-header>
-
-        <ion-item *ngFor="let item of header.items">
-          <ion-avatar slot="start">
-            <img src="https://www.fiorital.com/wp-content/uploads/2018/01/logo-sito-big-2.png" />
-          </ion-avatar>
-          <ion-label>
-            <h2 [style.color]="'white'">{{item.r1}}</h2>
-            <h3 [style.color]="'white'">{{item.r2}}</h3>
-            <p [style.color]="'darkgrey'">{{item.r3}}.</p>
-          </ion-label>
-        </ion-item>
-      </ng-container>
-    </ion-list> -->
-
-   
 
     <ion-list>
       <span *cdkVirtualFor="let item of items; let odd = odd; let i = index">

@@ -25,6 +25,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   @Input() content: any;
   @Input() draghdr: any;
   @Input() mover: any;
+  @Input() moverBadge: any;
 
   dragInMover: boolean = false;
   imageHeight: number;
@@ -55,6 +56,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
     let bottomBarOpacity;
     let spacerPosition;
     let moveWidth;
+    let bagseMoverOpacity;
 
     if (scrollTop >= 0) {
       imageMoveUp = -this.easeLinear(scrollTop, 0, this.imageHeight / 3.5, 300);
@@ -64,7 +66,10 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       barOpacity = this.easeLinear(scrollTop, 0, 100, 400, 300);
       masterHeaderOpacity = this.easeLinear(scrollTop, 0, 100, 250, 180);
       bottomBarOpacity = this.easeLinear(scrollTop, 0, 85, 400, 300);
+
       moveWidth = this.easeLinear(scrollTop, 0, 7.5, 400, 300);
+      bagseMoverOpacity = this.easeLinear(scrollTop, 0, 100, 400, 300);
+      
     } else {
       imageMoveUp = this.easeLinear(-scrollTop, 0, this.imageHeight, 300);
       imagescaleDown = this.easeLinear(-scrollTop, 1, 2.5, 300);
@@ -72,6 +77,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       barOpacity = 0;
       moveWidth = 0;
       bottomBarOpacity = 0;
+      bagseMoverOpacity = 0;
       floatButtonMoveUp = this.easeLinear(-scrollTop, 7.8, 22.0, 300);
     }
 
@@ -89,6 +95,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       this.renderer.setStyle(this.fabRef.el, 'top', floatButtonMoveUp + 'em');
 
       this.renderer.setStyle(this.mover, 'width', moveWidth + '%');
+      this.renderer.setStyle(this.moverBadge.el, 'opacity', bagseMoverOpacity + '%');
 
 
       if (this.ScrollDirection === 'U' && this.startScrollPosition === 0) {
@@ -198,12 +205,19 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       gestureName: 'mover',
       onEnd: ev => {
         this.dragInMover = false;
+        this.domCtrl.write(()=>{
+          this.renderer.setStyle( this.moverBadge.el, 'visibility','hidden');
+        });
       },
       onStart: ev => {
         this.dragInMover = true;
         this.domCtrl.read(() => {
           this.moverStartDragPos = this.mover.getBoundingClientRect().y;
         })
+
+        this.domCtrl.write(()=>{
+          this.renderer.setStyle( this.moverBadge.el, 'visibility','initial');
+        });
       },
       onMove: ev => {
         var topPos = this.moverStartDragPos + ev.deltaY
@@ -232,6 +246,11 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
     }, true).enable();
 
     this.VSE.scrolledIndexChange.subscribe(function ($event) {
+
+      this.domCtrl.write(() => {
+        this.moverBadge.el.innerHTML = 'in index '+$event;
+      });
+
       if (this.dragInMover === false) {
 
 
