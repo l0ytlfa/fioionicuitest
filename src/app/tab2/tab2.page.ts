@@ -105,12 +105,8 @@ export class Tab2Page  implements AfterViewInit{
     });
   }
 
-  onScroll($event){
-    //this.slidesProducts.el.slideNext()
-  }
-
   slidesDrag($event){
-    //console.log(this.swiperInner.translate);
+    //--> nothing
   }
 
   async clickFab($event){

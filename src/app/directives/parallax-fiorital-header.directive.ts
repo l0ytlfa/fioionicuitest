@@ -26,6 +26,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   @Input() draghdr: any;
   @Input() mover: any;
 
+  dragInMover: boolean = false;
   imageHeight: number;
   headerHeight: number;
   ScrollDirection: string = '';
@@ -41,7 +42,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   }
 
   @HostListener('ionScroll', ['$event']) onContentScroll(ev: any) {
-    //this._animateOnScroll(ev.detail.scrollTo);
+
   }
 
   _animateOnScroll(scrollTop) {
@@ -169,6 +170,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   }
 
   ngAfterViewInit() {
+
     this.mainContent = this.element.nativeElement.querySelector('.main-content');
 
     //--> drag (over scroll) event tracker
@@ -194,37 +196,54 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       el: this.mover,
       threshold: 15,
       gestureName: 'mover',
+      onEnd: ev => {
+        this.dragInMover = false;
+      },
       onStart: ev => {
+        this.dragInMover = true;
         this.domCtrl.read(() => {
           this.moverStartDragPos = this.mover.getBoundingClientRect().y;
         })
       },
       onMove: ev => {
-          var topPos = this.moverStartDragPos + ev.deltaY
-          if (topPos<200){
-            topPos = 200;
-          }
-          if (topPos>700){
-            topPos = 700;
-          }
+        var topPos = this.moverStartDragPos + ev.deltaY
+        if (topPos < 200) {
+          topPos = 200;
+        }
+        if (topPos > 700) {
+          topPos = 700;
+        }
 
-          let elCount = this.VSE.getDataLength();
-          let perc = (topPos-200)/(700-200);
-          let elIdx = Math.ceil(elCount * perc)
-          if (elIdx<6){
-            elIdx = 6
-          }
+        let elCount = this.VSE.getDataLength();
+        let perc = (topPos - 200) / (700 - 200);
+        let elIdx = Math.ceil(elCount * perc)
+        if (elIdx < 6) {
+          elIdx = 6
+        }
 
-          this.domCtrl.write(() => {
-            this.renderer.setStyle(this.mover, 'top', topPos + 'px');
-            this.VSE.scrollToIndex(elIdx)
-          })
+        this.domCtrl.write(() => {
+          this.renderer.setStyle(this.mover, 'top', topPos + 'px');
+          this.VSE.scrollToIndex(elIdx)
+        })
       },
       disableScroll: true,
       direction: 'y',
       gesturePriority: 100
     }, true).enable();
 
+    this.VSE.scrolledIndexChange.subscribe(function ($event) {
+      if (this.dragInMover === false) {
+
+
+        let elCount = this.VSE.getDataLength();
+        let perc = $event / elCount
+        let topPos = Math.floor(200+((700 - 200) * perc));
+
+        this.domCtrl.write(() => {
+          this.renderer.setStyle(this.mover, 'top', topPos + 'px');
+        })
+      }
+    }.bind(this))
 
     this.VSE.elementScrolled()
       .subscribe(function (event) {
