@@ -24,12 +24,14 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
   @Input() spacer: any;
   @Input() content: any;
   @Input() draghdr: any;
+  @Input() mover: any;
 
   imageHeight: number;
   headerHeight: number;
   ScrollDirection: string = '';
   lastScrollOffset: number = 0;
   startScrollPosition: number = 0;
+  moverStartDragPos: number = 0;
   expandedHeader: boolean = false;
   private mainContent: HTMLDivElement;
 
@@ -51,7 +53,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
     let masterHeaderOpacity;
     let bottomBarOpacity;
     let spacerPosition;
-    let draghdrOpacity;
+    let moveWidth;
 
     if (scrollTop >= 0) {
       imageMoveUp = -this.easeLinear(scrollTop, 0, this.imageHeight / 3.5, 300);
@@ -61,11 +63,13 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
       barOpacity = this.easeLinear(scrollTop, 0, 100, 400, 300);
       masterHeaderOpacity = this.easeLinear(scrollTop, 0, 100, 250, 180);
       bottomBarOpacity = this.easeLinear(scrollTop, 0, 85, 400, 300);
+      moveWidth = this.easeLinear(scrollTop, 0, 7.5, 400, 300);
     } else {
       imageMoveUp = this.easeLinear(-scrollTop, 0, this.imageHeight, 300);
       imagescaleDown = this.easeLinear(-scrollTop, 1, 2.5, 300);
       imageOpacity = 100;
       barOpacity = 0;
+      moveWidth = 0;
       bottomBarOpacity = 0;
       floatButtonMoveUp = this.easeLinear(-scrollTop, 7.8, 22.0, 300);
     }
@@ -82,6 +86,8 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
 
       this.renderer.setStyle(this.barSearchRef.el, 'opacity', barOpacity + '%');
       this.renderer.setStyle(this.fabRef.el, 'top', floatButtonMoveUp + 'em');
+
+      this.renderer.setStyle(this.mover, 'width', moveWidth + '%');
 
 
       if (this.ScrollDirection === 'U' && this.startScrollPosition === 0) {
@@ -166,7 +172,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
     this.mainContent = this.element.nativeElement.querySelector('.main-content');
 
     //--> drag (over scroll) event tracker
-    const gesture: Gesture = this.gestureCtrl.create({
+    this.gestureCtrl.create({
       el: this.content.el,
       threshold: 15,
       gestureName: 'my-gesture',
@@ -181,9 +187,44 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
         this.startScrollPosition = this.VSE.measureScrollOffset();
         console.log(this.startScrollPosition)
       }
-    }, false);
+    }, true).enable();
 
-    gesture.enable();
+    //---> mover list element drag (y)
+    this.gestureCtrl.create({
+      el: this.mover,
+      threshold: 15,
+      gestureName: 'mover',
+      onStart: ev => {
+        this.domCtrl.read(() => {
+          this.moverStartDragPos = this.mover.getBoundingClientRect().y;
+        })
+      },
+      onMove: ev => {
+          var topPos = this.moverStartDragPos + ev.deltaY
+          if (topPos<200){
+            topPos = 200;
+          }
+          if (topPos>700){
+            topPos = 700;
+          }
+
+          let elCount = this.VSE.getDataLength();
+          let perc = (topPos-200)/(700-200);
+          let elIdx = Math.ceil(elCount * perc)
+          if (elIdx<6){
+            elIdx = 6
+          }
+
+          this.domCtrl.write(() => {
+            this.renderer.setStyle(this.mover, 'top', topPos + 'px');
+            this.VSE.scrollToIndex(elIdx)
+          })
+      },
+      disableScroll: true,
+      direction: 'y',
+      gesturePriority: 100
+    }, true).enable();
+
 
     this.VSE.elementScrolled()
       .subscribe(function (event) {

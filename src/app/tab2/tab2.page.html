@@ -1,5 +1,6 @@
 <ion-content [scrollY]="false" (ionScroll)="onScroll($event)" appParallaxFioritalHeader [scrollEvents]="true"
-  [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [fabRef]="fbRef" [VSE]="VSE" [spacer]="SPACER" [content]="cnt" [draghdr]="DRAGHDR"
+  [imageRef]="imgRef" [headerRef]="masterHeaderRef" [barSearchRef]="barRef" [mover]="MOVER"
+  [fabRef]="fbRef" [VSE]="VSE" [spacer]="SPACER" [content]="cnt" [draghdr]="DRAGHDR"
   [barRefBottom]="barRefBottom" [style.background]="'black'" #cnt>
 
   <!-- master header  -->
@@ -14,9 +15,15 @@
       <h5 [style.margin]="'0'" [style.padding-top]="'1.5em'" [style.padding-left]="'1.5em'">sushi pasticceria!</h5>
     </ion-col>
     <ion-col size="2">
-
     </ion-col>
   </ion-row>
+
+  <div [style.z-index]="'10'" [style.position]="'fixed'" [style.width]="'0%'" [style.right]="'0px'" [style.top]="'200px'"
+  [style.height]="'3em'"[style.background]="'red'" [style.background]="'red'" [style.background]="'#7c9582'"
+  [style.border-top-left-radius]="'1em'" [style.border-bottom-left-radius]="'1em'" #MOVER>
+    <ion-icon name="list" [style.padding-top]="'0.7em'" [style.padding-left]="'0.4em'" [style.color]="'white'"
+    [style.font-size]="'1.25em'"></ion-icon>
+  </div>
 
   <!-- header on down drag-->
   <ion-row [style.opacity]="'0%'" [style.z-index]="'10'" [style.position]="'fixed'" [style.width]="'100%'" [style.background]="'black'"
