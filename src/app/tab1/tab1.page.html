@@ -7,11 +7,117 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{photoService.instr}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-slides pager="false" [options]="slideOpts" [style.background]="'transparent'" [style.padding-top]="'0.3em'">
+
+    <ion-slide [style.height]="'2em'">
+      <ion-badge [style.width]="'7em'" [class]="'slideInnerMarker'">sushi</ion-badge>
+    </ion-slide>
+    <ion-slide [style.height]="'2em'">
+      <ion-badge color="primary" [style.width]="'7em'" [class]="'slideInnerMarker'">DYP frozen</ion-badge>
+    </ion-slide>
+    <ion-slide [style.height]="'2em'">
+      <ion-badge color="primary" [style.width]="'7em'" [class]="'slideInnerMarker'">Atelier</ion-badge>
+    </ion-slide>
+    <ion-slide [style.height]="'2em'">
+      <ion-badge color="primary" [style.width]="'7em'" [class]="'slideInnerMarker'">Altro</ion-badge>
+    </ion-slide>
+    <ion-slide [style.height]="'2em'">
+      <ion-badge color="primary" [style.width]="'7em'" [class]="'slideInnerMarker'">Italian style</ion-badge>
+    </ion-slide>
+  </ion-slides>
+
+
+  <ion-slides pager="true" [options]="slideOpts" [style.background]="'transparent'"[style.height]="'25em'" [style.margin-top]="'0em'" class="whiteSpot">
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker2'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Founded in 1829
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker2'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Founded in 1829
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker2'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Founded in 1829
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker2'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Founded in 1829
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+  </ion-slides>
+
+  <ion-slides pager="true" [options]="slideOpts" [style.background]="'transparent'"[style.height]="'25em'" [style.margin-top]="'0em'" class="whiteSpot">
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker3'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker3'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker3'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card [style.width]="'15em'" [class]="'slideInnerMarker3'">
+        <img src="../../assets/madison.jpg" />
+        <ion-card-header>
+          <ion-card-subtitle>Destination</ion-card-subtitle>
+          <ion-card-title>Madison</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+
+  </ion-slides>
+
 </ion-content>

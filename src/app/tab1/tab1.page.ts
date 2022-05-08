@@ -8,10 +8,18 @@ import { PhotoService } from '../services/photo.service';
 })
 export class Tab1Page {
 
+  slideOpts: any;
+
   public templString: string;
 
   constructor(public photoService: PhotoService) {
     this.photoService = photoService;
+    this.slideOpts = {
+      freeMode: false,
+      slidesPerView: 2,
+      centeredSlides: true,
+      spaceBetween: 10
+    };
   }
 
 }

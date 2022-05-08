@@ -1,0 +1,30 @@
+
+
+.swiper-slide-active > .slideInnerMarker{
+    background: red;
+    transition: all 0.3s ease-in-out;
+    transform: translate(0,0.4em) scale(1.4);
+}
+
+
+.swiper-slide-active > .slideInnerMarker3{
+    background: lightblue;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.2);
+}
+
+.swiper-slide-active > .slideInnerMarker2{
+    background: red;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.2);
+}
+
+.swiper-slide-prev > .slideInnerMarker2{
+    filter: blur(8px);
+    -webkit-filter: blur(2px);
+}
+
+.swiper-slide-next > .slideInnerMarker2{
+    filter: blur(8px);
+    -webkit-filter: blur(2px);
+}
