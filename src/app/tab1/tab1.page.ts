@@ -9,6 +9,7 @@ import { PhotoService } from '../services/photo.service';
 export class Tab1Page {
 
   slideOpts: any;
+  slideOpts2: any;
   imagSource: string = '../../assets/menusanvan.png'
 
   public templString: string;
@@ -17,6 +18,13 @@ export class Tab1Page {
     this.photoService = photoService;
     this.slideOpts = {
       freeMode: false,
+      slidesPerView: 2,
+      centeredSlides: true,
+      spaceBetween: 10
+    };
+
+    this.slideOpts2 = {
+      freeMode: true,
       slidesPerView: 2,
       centeredSlides: true,
       spaceBetween: 10
