@@ -1,20 +1,52 @@
 
 
 .swiper-slide-active > .slideInnerMarker{
-    background: red;
     transition: all 0.3s ease-in-out;
-    transform: translate(0,0.4em) scale(1.4);
+    transform: translate(0,0.4em) scale(1.2);
 }
 
 
 .swiper-slide-active > .slideInnerMarker3{
-    background: lightblue;
+    background: #add8e68a;
     transition: all 0.2s ease-in-out;
-    transform: scale(1.2);
+    transform: scale(1.0) translate(0,1em);
+}
+
+.swiper-slide-active  .slideInnerMarker3photo{
+    transform: scale(1.3) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.swiper-slide-prev  .slideInnerMarker3photo{
+    transform: scale(2) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.swiper-slide-next  .slideInnerMarker3photo{
+    transform: scale(2) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+
+
+
+.swiper-slide-active  .slideInnerMarker2photo{
+    transform: scale(1.3) !important; 
+    transition: all 0.2s ease-in-out;
+}
+
+.swiper-slide-prev  .slideInnerMarker2photo{
+    transform: scale(1.6) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.swiper-slide-next  .slideInnerMarker2photo{
+    transform: scale(1.6) !important;
+    transition: all 0.2s ease-in-out;
 }
 
 .swiper-slide-active > .slideInnerMarker2{
-    background: red;
+    background: #4f567b7d;
     transition: all 0.2s ease-in-out;
     transform: scale(1.2);
 }
@@ -27,4 +59,49 @@
 .swiper-slide-next > .slideInnerMarker2{
     filter: blur(8px);
     -webkit-filter: blur(2px);
+}
+
+
+.swiper-slide-prev > .slideInnerMarker4{
+    opacity: 30%;
+    transition: all 0.4s ease-in-out;
+}
+
+.swiper-slide-next > .slideInnerMarker4{
+    opacity: 30%;
+    transition: all 0.4s ease-in-out;
+}
+
+
+.textBar1 {
+    position: absolute;
+    z-index: 1;
+    font-weight: bold;
+    color: black;
+    padding-left: 0.5em;
+    padding-top: 0.3em;
+}
+
+.textBar2{
+    position: absolute;
+    z-index: 1;
+    font-weight: bold;
+    color: #403e3e;
+    padding-left: 0.65em;
+    padding-top: 1.6em;
+    font-size: 0.8em;
+}
+
+.textOverlay{
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 100%;
+    position: absolute;
+    height: 3em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.bottomSliderFab{
+    bottom: 5em;
+    position: absolute;
 }

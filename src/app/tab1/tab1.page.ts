@@ -9,6 +9,7 @@ import { PhotoService } from '../services/photo.service';
 export class Tab1Page {
 
   slideOpts: any;
+  imagSource: string = '../../assets/menusanvan.png'
 
   public templString: string;
 
