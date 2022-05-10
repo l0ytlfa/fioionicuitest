@@ -15,7 +15,9 @@ export class Tab1Page {
   public templString: string;
 
   constructor(public photoService: PhotoService) {
+    
     this.photoService = photoService;
+    
     this.slideOpts = {
       freeMode: false,
       slidesPerView: 2,
@@ -24,7 +26,7 @@ export class Tab1Page {
     };
 
     this.slideOpts2 = {
-      freeMode: true,
+      freeMode: true, //<-- free mode
       slidesPerView: 2,
       centeredSlides: true,
       spaceBetween: 10
