@@ -1,6 +1,10 @@
 
+tested:
 - popup appear "spread" over window https://www.youtube.com/watch?app=desktop&v=s8ssGa-Rf6o
 - popup reveal center with bounce effect https://www.joshmorony.com/create-a-custom-modal-page-transition-animation-in-ionic/
+
+
+missing:
 - list press image > effect grow image + details appear down (shared component) https://www.joshmorony.com/creating-a-shared-element-transition-animation-in-ionic/
 
 - preparation time badge graphics (Deliveroo)

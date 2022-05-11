@@ -35,3 +35,16 @@
     --ion-backdrop-color: transparent;
     --ion-background-color: transparent;
 }
+
+.ionModalPrimary{
+    --background: var(--ion-color-primary);
+    --ion-backdrop-color: transparent;
+    --ion-background-color: transparent;
+}
+
+.popupCenterSmall{
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 5em;
+    padding-bottom: 11em;
+}
