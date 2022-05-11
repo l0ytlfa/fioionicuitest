@@ -6,6 +6,46 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" #PAGEREF>
   <lottie-player autoplay loop src="../../assets/33886-check-okey-done.json"></lottie-player>
+  <ion-fab-button size="small" class="bottomSliderFab" slot="fixed" (click)="pressfab()" style="z-index:999" #BTN1>
+    <ion-icon size="small" name="cart" #BTN1ICON></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button size="small" class="bottomSliderFab" slot="fixed" style="position:absolute;right: 0px;" (click)="pressfab2()">
+    <ion-icon size="small" name="cart"></ion-icon>
+  </ion-fab-button>
+
+  <ion-modal [isOpen]="isModalOpen" class="ionModalTransparent" [enterAnimation]="myEnterAnimation">  <!-- [presentingElement]="refPageEl" -->
+    <ng-template>
+      <app-modal-content>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button size="small" (click)="closefab()">back</ion-button>
+            </ion-buttons>
+            <ion-title>modal party</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <lottie-player autoplay loop src="../../assets/7458-fish.json"></lottie-player>
+      </app-modal-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="isModalOpen2" [breakpoints]="[0, 0.2, 0.5, 1]" [initialBreakpoint]=" 0.2">
+    <ng-template>
+      <app-modal-content>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button size="small" (click)="closefab()">back</ion-button>
+            </ion-buttons>
+            <ion-title>modal party</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <lottie-player autoplay loop src="../../assets/7458-fish.json"></lottie-player>
+      </app-modal-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>
+
