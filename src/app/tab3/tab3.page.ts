@@ -5,6 +5,8 @@ import { myEnterAnimation } from './animation1';
 import { myExitAnimation } from './animation2';
 import { myEnterAnimationCenter } from './animation3';
 
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -75,10 +77,12 @@ export class Tab3Page implements AfterViewInit {
   }
 
   closefab2(){
+    Haptics.impact({ style: ImpactStyle.Medium });  //<-- hit feedback
     this.isModalOpen2 = false;
   }
 
   closefab3(){
+    Haptics.impact({ style: ImpactStyle.Medium });  //<-- hit feedback
     this.isModalOpen3 = false;
   }
 

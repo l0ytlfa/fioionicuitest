@@ -4,7 +4,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { IonSlides , Animation, AnimationController, DomController, Gesture, GestureController, Platform } from '@ionic/angular';
-import { PhotoService } from '../services/photo.service';
+import { SAPconnectorService } from '../services/sapconnector.service';
 
 @Component({
   selector: 'app-tab2',
@@ -27,6 +27,8 @@ export class Tab2Page  implements AfterViewInit{
   lastSelectd: any;
   lastSelectdIndex = 0;
 
+  SAP: any
+
   swiperInner: any;
   slideOpts: any;
   borderVar = '5px solid green';
@@ -46,10 +48,10 @@ export class Tab2Page  implements AfterViewInit{
     'mirth-mobile'
   ];
 
-  constructor(public photoService: PhotoService, private animationCtrl: AnimationController,private domCtrl: DomController,private renderer: Renderer2,
+  constructor(SAP: SAPconnectorService, private animationCtrl: AnimationController,private domCtrl: DomController,private renderer: Renderer2,
     private gestureCtrl: GestureController, private platform: Platform) {
-    this.photoService = photoService;
-    this.templString = photoService.getData();
+
+   this.SAP = SAP
 
     this.slideOpts = {
       slidesPerView: 3,
@@ -105,10 +107,6 @@ export class Tab2Page  implements AfterViewInit{
     });
   }
 
-  slidesDrag($event){
-    //--> nothing
-  }
-
   async clickFab($event){
     this.slidesProducts.slideTo(3);
     this.lastSelectdIndex = 2;
@@ -123,6 +121,17 @@ export class Tab2Page  implements AfterViewInit{
       .play();
   }
 
+  getSAPdata(){
+
+    this.SAP.clearParameters('gr');
+    this.SAP.callFunction('gr','TEST_CALL','SYNC1').then((data)=>{
+     
+    }).catch((err)=>{
+      console.log('Error calling SAP')
+    })
+
+  }
+
   slidePress($event){
 
     this.lastSelectdIndex = this.swiperInner.clickedIndex;
@@ -135,23 +144,6 @@ export class Tab2Page  implements AfterViewInit{
       .to('left',this.wdts[this.lastSelectdIndex].x+'px')
       .to('transform', 'translate3d('+this.swiperInner.translate+'px,0,0)')
       .play();
-  }
-
-  getBorderVal(){
-    return '\''+this.borderVar+'\'';
-  }
-
-  getImgSrc() {
-    const src = 'https://dummyimage.com/600x400/${Math.round( Math.random() * 99999)}/fff.png';
-    this.rotateImg++;
-    if (this.rotateImg === this.images.length) {
-      this.rotateImg = 0;
-    }
-    return src;
-  }
-
-  addPhotoToGallery() {
-    this.photoService.setData('event!');
   }
 
 }

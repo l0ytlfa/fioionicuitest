@@ -6,7 +6,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScroll)="onScrollContent($event)">
+
+  <!-- <youtube-player videoId="PRQCAL_RMVo" width="95%" (ready)="videReady($event)"></youtube-player> -->
+
+  <div 
+  class="skeleton skeleton-card-1"
+  style="
+    --c-w: 400px;
+    --shine: rgba(0, 0, 0, 0.22);
+    --card-h: 120px;
+    --t: 1s;
+    transform: scale3d(0.8,0.8,1);
+  "
+></div>
+
+  <embed data='https://www.youtube.com/embed/nfk6sCzRTbM?autoplay=1' 
+        width='560px' height='315px'>
 
   <ion-slides pager="false" [options]="slideOpts" [style.height]="'5em'" [style.background]="'transparent'"
     [style.padding-top]="'0.3em'">
@@ -190,5 +206,61 @@
       </div>
     </ion-slide>
   </ion-slides>
+
+  <div class="ion-padding">
+    <ion-card style="background-image: linear-gradient(black, black,#384d9d);">
+      <ion-card-header>
+        <ion-card-title>sushi bausci + full screen</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+         super sushi
+         <video #player playsinline preload="auto" style="width:100%">
+           <source src="../../assets/video1.mp4"/>
+         </video>
+         <ion-fab-button size="small" class="bottomSliderFabVideo buttonTrasparent">
+          <ion-icon size="small" name="videocam" (click)="goFull(player)"></ion-icon>
+        </ion-fab-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card style="background-image: linear-gradient(#3d85d070,#3d85d070,black, black);">
+      <ion-card-header>
+        <ion-card-title>sushi bausci</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+         super sushi
+         <video #player playsinline preload="auto" style="width:100%">
+           <source src="../../assets/video1.mp4"/>
+         </video>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card style="background-image: linear-gradient(black, black,#384d9d);">
+      <ion-card-header>
+        <ion-card-title>sushi GIF</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+         super sushi gif
+         <ion-img src="../../assets/testgif.gif"></ion-img>
+         <ion-fab-button size="small" class="bottomSliderFabVideo buttonTrasparent">
+          <ion-icon size="small" name="videocam" (click)="goFull(player)"></ion-icon>
+        </ion-fab-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card style="background-image: linear-gradient(black, black,#384d9d);">
+      <ion-card-header>
+        <ion-card-title>sushi SVG icon</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+         super sushi gif
+         <ion-img src="../../assets/Gif-ciotole-atelier.gif"></ion-img>
+         <ion-fab-button size="small" class="bottomSliderFabVideo buttonTrasparent">
+          <ion-icon size="large" src="../../assets/local_1.svg"></ion-icon>
+        </ion-fab-button>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
 
 </ion-content>

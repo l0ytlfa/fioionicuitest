@@ -1,22 +1,40 @@
+----------------------------------------------
+FRONTEND UX/UI 
 
 tested:
 - popup appear "spread" over window https://www.youtube.com/watch?app=desktop&v=s8ssGa-Rf6o
-- popup reveal center with bounce effect https://www.joshmorony.com/create-a-custom-modal-page-transition-animation-in-ionic/
+- popup reveal center with bounce effect (animation classes for modals) https://www.joshmorony.com/create-a-custom-modal-page-transition-animation-in-ionic/
+- vdeo inline play automatico allo scroll della view https://www.youtube.com/watch?v=qQYuVfAJ4zY
+- youtube player with API and wrapper https://github.com/angular/components/blob/main/src/youtube-player/youtube-player.ts 
+- custom SVG icon (edited in https://editor.method.ac/)
+- animated GIF as ion-img
+- skeleton CSS lib  (https://dgknca.github.io/css-skeletons/)
 
+missing to test:
 
-missing:
 - list press image > effect grow image + details appear down (shared component) https://www.joshmorony.com/creating-a-shared-element-transition-animation-in-ionic/
-
+- list > reveal expand detail animation
 - preparation time badge graphics (Deliveroo)
 - animated gif in card
 - video youtube enbedd in tab
 - swiperjs parallax effect
-- list > reveal expand detail animation
-- side panel menu (slack)
 - order flow graphic (Deporvillage)
 - splash screen with animation
 - card cirle layout (Linkedin contacts)
-- cards image split in two / three 
-
+- side panel menu (slack)
 - popup lower traslucent with bounce effect (Spotify)
 - long press shrink and bounce effect (for dialog appear)
+
+
+
+
+----------------------------------------------
+SAP Connector
+
+missing:
+- advances credential management
+
+tested:
+- global ready models event (async.js lib used)
+- property data loaded per model (boolean)
+- property last data loaded timestamp per model (boolean)

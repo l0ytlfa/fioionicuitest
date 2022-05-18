@@ -85,7 +85,7 @@ export class ParallaxFioritalHeaderDirective implements AfterViewInit, AfterView
     this.domCtrl.write(() => {
       this.renderer.setStyle(this.spacer, 'margin-bottom', spacerPosition + 'em');
 
-      this.renderer.setStyle(this.imageRef.el, 'transform', 'translate3d(0,' + imageMoveUp + 'px,0)  scale(' + imagescaleDown + ',' + imagescaleDown + ')');
+      this.renderer.setStyle(this.imageRef.el, 'transform', 'translate3d(0,' + imageMoveUp + 'px,0)  scale3d(' + imagescaleDown + ',' + imagescaleDown + ',1)');
 
       this.renderer.setStyle(this.imageRef.el, 'opacity', imageOpacity + '%');
       this.renderer.setStyle(this.headerRef.el, 'opacity', masterHeaderOpacity + '%');

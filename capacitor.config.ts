@@ -4,7 +4,10 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
   appName: 'photo-gallery',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  server:{
+    hostname: 'wd.fiorital.com'
+  }
 };
 
 export default config;

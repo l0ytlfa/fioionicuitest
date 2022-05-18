@@ -1,0 +1,100 @@
+// @ts-nocheck
+import { AfterViewInit, Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+})
+export class AppComponent implements AfterViewInit {
+  constructor() { 
+
+  }
+
+  ngAfterViewInit(): void {
+
+    //--> load UI5 bootstrap
+    const ui5ScriptTag = document.createElement('script');
+    ui5ScriptTag.src = 'https://openui5.hana.ondemand.com/resources/sap-ui-core.js';
+    ui5ScriptTag.id = 'sap-ui-bootstrap';
+    ui5ScriptTag.setAttribute('data-sap-ui-libs', 'sap.ui.commons,sap.ui.ux3,sap.m,sap.uxap,sap.tnt');
+    ui5ScriptTag.setAttribute('data-sap-ui-theme', 'sap_bluecrystal');
+    const bodyElememt = document.getElementsByTagName('body')[0];
+
+    //--> after UI5 is loaded 
+    ui5ScriptTag.onload = function () {
+
+      //--> after UI5 is ready
+      const oCore = window.sap.ui.getCore();
+      oCore.attachInit(() => {
+
+        //--> register module path to load Fiorital UI5 libs
+        window.jQuery.sap.registerModulePath("fioritalframework", "/assets");
+        window.jQuery.sap.registerModulePath("it/fiorital/fioritalui5lib/framework", "/assets");
+        window.jQuery.sap.registerModulePath("it/fiorital/fioritalui5lib/libs", "/assets/libs");
+
+        //--> require modules
+        window.sap.ui.require(['sap/ui/model/json/JSONModel', 'sap/ui/core/UIComponent', 'fioritalframework/uy5/helper/UY5CORE'],
+          function (JSONModel, UIComponent, UY5CORE) {
+
+            //--> handle authentication requests with cookies
+            window.jQuery.ajaxSetup({
+              beforeSend: function (jqXHR, settings) {
+                if (settings.url.includes('wd.fiorital.com')) {
+                  settings.xhrFields = { withCredentials: true }
+                }
+              }
+            });
+
+            //---> first authentication: then instantiate the model
+            try {
+
+              window.jQuery.ajax({
+                type: "GET",
+                contentType: "application/json",
+                crossDomain: true,
+                url: "https://wd.fiorital.com:4301/sap/opu/odata4/sap/zretail/default/sap/zmm_gr_list/0001/?sap-client=200'",
+                beforeSend: function (req) {
+                  req.setRequestHeader('Authorization', 'Basic ' + btoa('BPINST:Welcome1'));
+                },
+                headers: {
+                  "Authorization": "Basic " + btoa("BPINST" + ":" + "Welcome1"),
+                },
+                async: false,
+                success: function (data, textStatus, jqXHR) {
+
+                  //--> create the master odataV4 model
+                  var odv4 = new window.sap.ui.model.odata.v4.ODataModel({
+                    serviceUrl: 'https://wd.fiorital.com:4301/sap/opu/odata4/sap/zretail/default/sap/zmm_gr_list/0001/?sap-client=200',
+                    synchronizationMode: 'None',
+                    groupId: '$direct',
+                    odataVersion: '4.0'
+                  })
+
+                  //--> get the XCRF token (HEAD)
+                  odv4.initializeSecurityToken();
+
+                  //--> load UY5 custom framework
+                  var uy5 = new UY5CORE(odv4, '../assets/models.XML')
+                  uy5.getXMLModels()
+
+                },
+                error: function (oError) {
+                  console.log('>>> LOGON TO SAP SERVER FAILED <<<')
+                }
+
+              });
+
+            } catch (ex) {
+              console.log('>>> LOGON TO SAP SERVER FAILED: exception raised <<<')
+            }
+
+          });
+
+      });
+    }
+
+    bodyElememt.appendChild(ui5ScriptTag);
+
+  }
+}
